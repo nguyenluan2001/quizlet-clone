@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Logo, Navbar, NavbarLeft, NavbarRight } from "./style"
-function Header() {
+import { FaSearch } from "react-icons/fa"
+function Header({setSign}) {
     return (
         <Container>
             <Logo>
@@ -22,11 +23,15 @@ function Header() {
                 </NavbarLeft>
                 <NavbarRight>
                     <div className="search">
-                        <input type="text" />
-
+                        <input type="text" placeholder="Tìm kiếm" />
+                        <span className="icon">
+                            <FaSearch></FaSearch>
+                        </span>
                     </div>
-                    <button>Đăng nhập</button>
-                    <button>Đăng ký</button>
+                    <div className="buttons">
+                        <span className="login" onClick={()=>setSign("login")}>Đăng nhập</span>
+                        <span className="register" onClick={()=>setSign("register")}>Đăng ký</span>
+                    </div>
                 </NavbarRight>
             </Navbar>
 
