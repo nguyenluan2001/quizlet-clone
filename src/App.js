@@ -1,15 +1,19 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import PrivateRoute from "./components/PrivateRoute";
 import Introduce from './scenes/introduce/Introduce';
 import Main from "./scenes/main/Main";
+import AuthProvider from './services/authContext'
+
 function App() {
   return (
     <div className="App">
       <Router>
-        <Switch>
-          <Route path="/" component={Main}></Route>
-          <Route path="/vi" exact component={Introduce}></Route>
-          
-        </Switch>
+        <AuthProvider>
+          <Switch>
+            <Route path="/vi"  component={Introduce}></Route>
+            <PrivateRoute path="/"  component={Main}></PrivateRoute>
+          </Switch>
+        </AuthProvider>
       </Router>
     </div>
   );

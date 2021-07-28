@@ -4,7 +4,11 @@ width:100%;
 display:flex;
 align-items:center;
 background:rgb(66,87,178);
-padding:0.6rem 1rem;
+padding:0.9rem 1rem;
+.sticky{
+    position:sticky;
+}
+z-index:10;
 `
 export const Logo = styled.div`
 font-size:1.6rem;
@@ -150,4 +154,7 @@ align-items:center;
 
     }
 }
+`
+export const WrapperHeader=styled.div`
+position:relative;
 `

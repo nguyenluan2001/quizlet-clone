@@ -2,10 +2,9 @@ import React,{useState} from 'react'
 import Login from '../sign/scenes/login/Login'
 import Register from '../sign/scenes/register/Register'
 import Header from './components/header/Header'
-import {auth} from "../../services/firebase"
+
 function Homepage() {
     const [sign,setSign]=useState("")
-    console.log(auth.currentUser)
     return (
         <div>
             <Header setSign={setSign} ></Header>

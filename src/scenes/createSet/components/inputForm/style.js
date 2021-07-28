@@ -1,7 +1,6 @@
 import styled from "styled-components";
-export const InputContainer=styled.div`
-input
-{
+export const InputContainer=styled.input`
+
     border:none;
     border-bottom:3px solid black;
     outline:none;
@@ -10,9 +9,6 @@ input
         border-bottom:3px solid gold;
     }
 
-}
-p{
-    font-weight:bold;
-    color:rgb(155,158,186);
-}
+
+
 `
