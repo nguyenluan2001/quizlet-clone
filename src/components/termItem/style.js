@@ -6,6 +6,7 @@ box-shadow:0px 0px 5px 0px black;
 padding: 1rem;
 font-size:1.2rem;
 margin-bottom:1rem;
+background:white;
 .actions{
     list-style-type:none;
     display:flex;

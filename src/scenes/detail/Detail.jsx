@@ -26,7 +26,7 @@ import {
 
 } from "react-icons/fa"
 import Slide from './components/slide/Slide'
-import TermItem from './components/termItem/TermItem'
+import TermItem from '../../components/termItem/TermItem'
 import Learn from '../learn/Learn'
 function Detail({}) {
     const { id, type } = useParams()

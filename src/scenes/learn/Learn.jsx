@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom"
 import WordItem from './components/WordItem'
 import { fetchCourseById } from "../../services/database"
 import { useSelector, useDispatch } from "react-redux"
-import { initLearn, updateCorrect,updateWrong } from "../../services/slices/learnSlice"
+import { initLearn, updateCorrect,updateWrong,resetLearn } from "../../services/slices/learnSlice"
 import Result from './components/result/Result'
 function Learn() {
-    const { id } = useParams()
+    const { id,type } = useParams()
+    console.log(type)
     const learn = useSelector(state => state.learn)
     const dispatch = useDispatch()
     const [listWords, setListWords] = useState([])
@@ -17,6 +18,9 @@ function Learn() {
         fetchCourseById(id).then(res => {
             dispatch(initLearn(res.data()))
         })
+        return ()=>{
+            dispatch(resetLearn())
+        }
     }, [])
     useEffect(() => {
         if (learn.currentTerm != null) {
@@ -88,7 +92,7 @@ function Learn() {
                     </div>
                 </div>
             </Content>
-            :<Result></Result>
+            :<Result id={id}></Result>
             }
            
             {!checkAnswer && chooseAnswer && <PopUp>

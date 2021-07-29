@@ -3,6 +3,29 @@ export const Container=styled.div`
 width:100%;
 min-height:100vh;
 background:rgb(246,247,251);
+.buttons{
+    display:flex;
+    justify-content:center;
+   .btn{
+    margin-right:2rem;
+    width:fit-content;
+    text-align:center;
+    border:none;
+    padding:0.7rem 1.5rem;
+    background:rgb(60,207,207);
+    color:white;
+    font-weight:bold;
+    font-size:1rem;
+    border-radius:5px;
+    cursor:pointer;
+   }
+   .learn-done
+   {
+       background:white;
+       color:black;
+       border:1px solid rgba(0,0,0,0.5);
+   }
+}
 `
 export const WrapResult=styled.div`
 padding:2rem 0rem;

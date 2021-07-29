@@ -32,9 +32,13 @@ export const learnSlice=createSlice({
             let randomIndex=Math.floor(Math.random()*(newListTerms.length-1))
             state.currentTerm=newListTerms[randomIndex]
             state.listTermsLearning=newListTerms
+        },
+        resetLearn:(state,action)=>
+        {
+            return initialState
         }
     }
 
 })
-export const {initLearn,updateCorrect,updateWrong}=learnSlice.actions
+export const {initLearn,updateCorrect,updateWrong,resetLearn}=learnSlice.actions
 export default learnSlice.reducer
