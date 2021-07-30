@@ -90,6 +90,22 @@ export const writeSlice = createSlice({
         resetWrite: (state, action) => {
             return initialState
         },
+        restartWrite: (state, action) => {
+            let randomIndex = Math.floor(Math.random() * (state.listTerms.length - 1))
+            let round = {
+                id: Math.floor(Math.random() * 100000),
+                listTerms: state.listTerms,
+                listTermsWriting: state.listTerms,
+                currentTerm: state.listTerms[randomIndex],
+                correct: [],
+                wrong: []
+            }
+            state.listRounds=[round]
+            state.currentRound = round
+            state.listTerms = state.listTerms
+
+
+        }
         // startRound: (state, action) => {
         //     let round = {
         //         id: Math.floor(Math.random() * 100000),
@@ -110,6 +126,7 @@ export const { initWrite,
     updateCorrect,
     updateWrong,
     continueWriting,
-    resetWrite
+    resetWrite,
+    restartWrite
 } = writeSlice.actions
 export default writeSlice.reducer

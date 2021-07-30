@@ -2,7 +2,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 display:grid;
 grid-template-columns:1fr 5fr;
-height:100vh;
+min-height:100vh;
 grid-gap 0rem 2rem;
 padding:0rem 4rem;
 background: rgb(246,247,251);
@@ -13,18 +13,75 @@ padding:1rem;
 .type{
     font-size:1.2rem;
     font-weight:bold;
+    margin-top:2rem;
+    margin-bottom:2rem;
+    display:flex;
+    align-items:center;
+    svg{
+        font-size:1.5rem;
+        margin-right:1.3rem;
+        color:rgb(66,87,178);
+    }
+}
+.back{
+    display:flex;
+    align-items:center;
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    padding:1rem 0rem;
+    border-bottom:1px solid rgba(0,0,0,0.1);
+    svg{
+        color:rgb(65,208,208);
+        margin-right:1rem;
+    }
+    &:hover svg{
+        color:gold;
+    }
 }
 `
 export const RightContent = styled.div`
 background:white;
-height:50vh;
+height:fit-content;
 margin-top:2rem;
 padding:2rem;
 .word{
     font-size:2rem;
     font-weight:bold;
     padding-bottom:5rem;
-    border-bottom:1px solid rgba(0,0,0,0.3)
+    border-bottom:1px solid rgba(0,0,0,0.3);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    .dont-know{
+        font-size:1rem!important;
+        color:rgb(71,210,210);
+        cursor:pointer;
+    }
+}
+.suggest{
+    padding-top:1rem;
+
+    .title{
+        font-weight:bold;
+        color:rgb(147 155 180);
+    }
+    &>p:last-child{
+        font-size:1.3rem;
+        padding:0;
+    }
+}
+.question{
+    padding-bottom:1rem;
+    border-bottom:1px solid rgba(0,0,0,0.2);
+    .title{
+        font-weight:bold;
+        color:rgb(147 155 180);
+    }
+    &>p:last-child{
+        font-size:1.3rem;
+        padding:0;
+    }
 }
 .definition{
     padding-top:2rem;
