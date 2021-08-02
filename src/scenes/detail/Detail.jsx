@@ -28,6 +28,7 @@ import {
 import Slide from './components/slide/Slide'
 import TermItem from '../../components/termItem/TermItem'
 import Learn from '../learn/Learn'
+import Test from '../test/Test'
 function Detail({}) {
     const { id, type } = useParams()
     let scene = null
@@ -49,6 +50,11 @@ function Detail({}) {
         case "learn":
             {
                 scene=<Learn></Learn>
+                break
+            }
+        case "test":
+            {
+                scene=<Test></Test>
                 break
             }
         default:
@@ -91,7 +97,7 @@ function Detail({}) {
                             </Link>
                         </li>
                         <li>
-                            <Link>
+                            <Link to={`/${id}/test`}>
                                 <FaFileAlt></FaFileAlt>
                                 Kiểm tra
                             </Link>
