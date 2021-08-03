@@ -12,6 +12,7 @@ import Multiple from './components/multiple/Multiple'
 import TrueFalse from './components/trueFalse/TrueFalse'
 function Test() {
     const [showSetting, setShowSetting] = useState(true)
+    const [showAnswer,setShowAnswer]=useState(false)
     const test = useSelector(state => state.test)
     const { id } = useParams()
     const dispatch = useDispatch()
@@ -46,7 +47,7 @@ function Test() {
                                 case 0:
                                     {
 
-                                        return <Write></Write>
+                                        return <Write showAnswer={showAnswer}></Write>
                                         break
                                     }
                                 case 1:
@@ -58,12 +59,12 @@ function Test() {
                                 case 2:
                                     {
 
-                                        return <Multiple></Multiple>
+                                        return <Multiple showAnswer={showAnswer}></Multiple>
                                         break
                                     }
                                 case 3:
                                     {                           
-                                        return <TrueFalse></TrueFalse>
+                                        return <TrueFalse showAnswer={showAnswer}></TrueFalse>
                                         break
                                     }
                                 default:
@@ -75,9 +76,9 @@ function Test() {
                         }
                     })
                 }
-                <div className="show-answer-btn">Xem đáp án</div>
+                <div className="show-answer-btn" onClick={()=>setShowAnswer(true)}>Xem đáp án</div>
             </RightContent>
-            {showSetting && <Setting setShowSetting={setShowSetting}></Setting>}
+            {showSetting && <Setting setShowAnswer={setShowAnswer} setShowSetting={setShowSetting}></Setting>}
 
         </Container>
     )

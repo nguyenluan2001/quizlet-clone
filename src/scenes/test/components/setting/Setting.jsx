@@ -3,7 +3,7 @@ import { Container, WrapContent } from "./style"
 import { FaTimes } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { initTest, resetTest } from "../../../../services/slices/testSlice"
-function Setting({ setShowSetting }) {
+function Setting({ setShowSetting,setShowAnswer }) {
     const [input, setInput] = useState({
         numQuestions: 6,
         typeQuestions: []
@@ -53,6 +53,7 @@ function Setting({ setShowSetting }) {
         dispatch(resetTest())
         dispatch(initTest(input))
         setShowSetting(false)
+        setShowAnswer(false)
     }
     return (
         <Container>

@@ -18,5 +18,25 @@ margin-bottom:4rem;
             border-bottom:3px solid gold;
         }
     }
+    .true{
+        padding-left:1rem;
+        p{
+            margin-bottom:1rem;
+        }
+        & .title{
+            font-weight:bold;
+            color:rgb(179,185,202);
+        }
+    }
+    .false{
+        padding-left:1rem;
+        p{
+            margin-bottom:1rem;
+        }
+        & .title{
+            font-weight:bold;
+            color:rgb(179,185,202);
+        }
+    }
 }
 `
