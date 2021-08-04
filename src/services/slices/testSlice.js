@@ -9,7 +9,8 @@ const initialState = {
         "multiple": [],
         "trueFalse": []
 
-    }
+    },
+    correct:[]
 }
 const fetchCourseById = createAsyncThunk(
     'fetchCourse',
@@ -28,6 +29,7 @@ const testSLice = createSlice({
             let typeQuestions = action.payload.typeQuestions
             let newListTerms = [...state.listTerms]
             newListTerms = newListTerms.sort(() => Math.random() - Math.random()).slice(0, numQuestions)
+            state.listTermsTesting=JSON.parse(JSON.stringify(newListTerms))
             let newListTermsLen=newListTerms.length
             typeQuestions.forEach(type => {
                 let count = Math.floor(newListTermsLen/typeQuestions.length)
@@ -51,8 +53,11 @@ const testSLice = createSlice({
             // state.listTermsTesting=newListTerms
 
         },
+        updateCorrect:(state,action)=>{
+            state.correct.push(action.payload)
+        },
         resetTest:(state,action)=>{
-            state.listTermsTesting= null
+            state.listTermsTesting= [1,2,3]
             state.groupTermByType={
                 "write": [],
                 "match-card": [],
@@ -60,6 +65,7 @@ const testSLice = createSlice({
                 "trueFalse": []
         
             }
+            state.correct=[]
         }
     },
     extraReducers: (builder) => {
@@ -70,5 +76,5 @@ const testSLice = createSlice({
 
 })
 export { fetchCourseById }
-export const { initTest,resetTest } = testSLice.actions
+export const { initTest,resetTest,updateCorrect } = testSLice.actions
 export default testSLice.reducer

@@ -13,6 +13,8 @@ import TrueFalse from './components/trueFalse/TrueFalse'
 function Test() {
     const [showSetting, setShowSetting] = useState(true)
     const [showAnswer,setShowAnswer]=useState(false)
+    const [showScore,setShowScore]=useState(false)
+    const [score,setScore]=useState(0)
     const test = useSelector(state => state.test)
     const { id } = useParams()
     const dispatch = useDispatch()
@@ -20,9 +22,24 @@ function Test() {
         dispatch(fetchCourseById(id))
     }, [])
     useEffect(() => {
-
-    }, [])
-    console.log(Object.values(test.groupTermByType))
+        if(showAnswer)
+        {
+          setShowScore(true)
+        }
+    }, [showAnswer])
+    useEffect(()=>{
+        if(showScore)
+        {
+            let newScore=parseFloat((test.correct.length/test.listTermsTesting.length)*100).toFixed(0)
+            console.log(newScore)
+            setScore(newScore)
+        }
+    },[showScore])
+    function handleShowAnswer()
+    {
+        setShowAnswer(true)
+    }
+    console.log(test)
     return (
         <Container>
             <LeftContent>
@@ -34,6 +51,12 @@ function Test() {
                     <FaFileContract></FaFileContract>
                     KIỂM TRA
                 </p>
+                {
+                    showAnswer?<div className="wrap-score">
+                        <p className="title">ĐIỂM</p>
+                        <p className="score">{score}%</p>
+                    </div>:""
+                }
                 <div className="setting-btn" onClick={() => setShowSetting(true)}>
                     Tùy chọn
                 </div>
@@ -76,7 +99,7 @@ function Test() {
                         }
                     })
                 }
-                <div className="show-answer-btn" onClick={()=>setShowAnswer(true)}>Xem đáp án</div>
+                <div className="show-answer-btn" onClick={()=>handleShowAnswer()}>Xem đáp án</div>
             </RightContent>
             {showSetting && <Setting setShowAnswer={setShowAnswer} setShowSetting={setShowSetting}></Setting>}
 

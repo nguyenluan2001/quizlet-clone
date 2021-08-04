@@ -52,6 +52,18 @@ padding:1rem;
     }
 
 }
+.wrap-score{
+    .title{
+        font-weight:bold;
+        margin:0;
+    }
+    .score{
+        line-height:1;
+        font-size:4rem;
+        font-weight:bold;
+        color:rgb(66,87,178);
+    }
+}
 `
 export const RightContent = styled.div`
 background:white;

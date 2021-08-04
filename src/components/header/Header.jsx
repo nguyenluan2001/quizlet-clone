@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { Container, Logo, Navbar, NavbarLeft, NavbarRight,StickyHeader,WrapperHeader } from "./style"
 import { FaSearch, FaAngleDown } from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { NavLink,Link } from "react-router-dom"
 import {useAuth} from "../../services/authContext"
 function Header({setStickyHeader,stickyHeader}) {
     const [showLibrary, setShowLibrary] = useState(false)
@@ -31,7 +31,7 @@ function Header({setStickyHeader,stickyHeader}) {
                 </Logo>
                 <Navbar>
                     <NavbarLeft>
-                        <span className="home">Trang chủ</span>
+                        <NavLink activeClassName="active" to="/latest" className="home">Trang chủ</NavLink>
                         <div class="dropdown library">
                             <div className="title" onClick={() => setShowLibrary(pre => !pre)}>
                                 Thư viện của bạn

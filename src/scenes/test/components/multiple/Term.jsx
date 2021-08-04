@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
+import {updateCorrect} from "../../../../services/slices/testSlice"
 import {FaTimes,FaCheck} from "react-icons/fa"
 function Term({ term, index, showAnswer }) {
     const [input, setInput] = useState(null)
     const test = useSelector(state => state.test)
+    const dispatch=useDispatch()
     const [randomDefinition, setRandomDefinition] = useState(null)
     const [result,setResult]=useState(false)
     useEffect(() => {
@@ -17,19 +19,24 @@ function Term({ term, index, showAnswer }) {
 
     }, [])
     useEffect(() => {
-        if(input==term.definition)
+        if(showAnswer)
         {
-            setResult(true)
+
+            if(input==term.definition)
+            {
+                setResult(true)
+                dispatch(updateCorrect(term))
+            }
+            else
+            {
+                setResult(false)
+            }
+            let radio=[...document.querySelectorAll("input[type=radio]")]
+            radio.forEach(item=>{
+                item.disabled=true
+            })
+            console.log(input)
         }
-        else
-        {
-            setResult(false)
-        }
-        let radio=[...document.querySelectorAll("input[type=radio]")]
-        radio.forEach(item=>{
-            item.disabled=true
-        })
-        console.log(input)
     }, [showAnswer])
     function handleInput(e)
     {

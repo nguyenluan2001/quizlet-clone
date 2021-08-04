@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Term from '../multiple/Term'
 import { FaCheck, FaTimes } from "react-icons/fa"
+import {useDispatch} from "react-redux"
+import {updateCorrect} from "../../../../services/slices/testSlice"
 function WriteItem({ term, index, showAnswer }) {
     const [input, setInput] = useState("Chưa có đáp án")
     const [result, setResult] = useState(false)
+    const dispatch=useDispatch()
     function handleInput(e) {
         setInput(e.target.value)
     }
@@ -11,6 +14,7 @@ function WriteItem({ term, index, showAnswer }) {
         if (showAnswer) {
             if (input == term.definition) {
                 setResult(true)
+                dispatch(updateCorrect(term))
             }
             else {
                 setResult(false)

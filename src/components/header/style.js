@@ -4,7 +4,8 @@ width:100%;
 display:flex;
 align-items:center;
 background:rgb(66,87,178);
-padding:0.9rem 1rem;
+padding:0.8rem 1rem;
+height:fit-content;
 .sticky{
     position:sticky;
 }
@@ -91,6 +92,24 @@ margin-left:2rem;
         }
     }
 
+}
+a{
+    text-decoration:none;
+}
+a.active{
+    position:relative;
+    &::after{
+        content:"";
+        display:flex;
+        height:4px;
+        width:100%;
+        background:gold;
+        position:absolute;
+        margin-top:1rem;
+        border-radius: 5px 5px 0px 0px;
+
+
+    }
 }
 `
 export const NavbarRight = styled.div`
