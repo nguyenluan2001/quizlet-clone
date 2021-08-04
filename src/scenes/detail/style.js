@@ -35,17 +35,21 @@ export const CourseInfo = styled.div`
         list-style-type:none;
         display:flex;
         li{
-            border:1px solid black;
+            border:1px solid rgba(0,0,0,0.3);
             border-radius:50%;
-            width:30px;
-            height:30px;
+            width:35px;
+            height:35px;
             margin-left:0.5rem;
             font-size:1rem;
             display:flex;
             justify-content:center;
             align-items:center;
             cursor:pointer;
-            &:hover{
+            a{
+                line-height:1;
+                color:black;
+            }
+            &:hover a{
                 color:gold;
             }
         }
@@ -56,7 +60,7 @@ export const CourseInfo = styled.div`
 export const RightContent = styled.div`
 position: relative;
 overflow:hidden;
-height:300px;
+height:400px;
 `
 export const LeftContent = styled.ul`
 list-style-type:none;

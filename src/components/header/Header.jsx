@@ -94,7 +94,21 @@ function Header({setStickyHeader,stickyHeader}) {
                                 <FaSearch></FaSearch>
                             </span>
                         </div>
-                        <button onClick={()=>handleLogout()}>Logout</button>
+                        <div class="dropdown user">
+                            <div class="image" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://assets.quizlet.com/a/j/dist/i/animals/14.3d9afcb8dbe2d77.jpg" alt="" />
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <Link class="dropdown-item" to="/create-set">Hồ sơ</Link>
+                                <Link class="dropdown-item" to="/create-set">Tiến độ</Link>
+                                <Link class="dropdown-item" to="/create-set">Chế độ ban đêm</Link>
+                                <Link class="dropdown-item" to="/create-set">Cài đặt</Link>
+                                <Link class="dropdown-item" to="/create-set">Đăng xuất</Link>
+
+                                
+                            </div>
+                        </div>
+                        {/* <button onClick={()=>handleLogout()}>Logout</button> */}
                     </NavbarRight>
                 </Navbar>
 

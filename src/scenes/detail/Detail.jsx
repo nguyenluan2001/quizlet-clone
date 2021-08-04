@@ -29,7 +29,7 @@ import Slide from './components/slide/Slide'
 import TermItem from '../../components/termItem/TermItem'
 import Learn from '../learn/Learn'
 import Test from '../test/Test'
-function Detail({}) {
+function Detail({ }) {
     const { id, type } = useParams()
     let scene = null
     const [course, setCourse] = useState({})
@@ -39,22 +39,22 @@ function Detail({}) {
     }, [])
     switch (type) {
         case "flashcards": {
-            scene=<FlashCard></FlashCard>
+            scene = <FlashCard></FlashCard>
             break
         }
         case "write":
             {
-                scene=<Write></Write>
+                scene = <Write></Write>
                 break
             }
         case "learn":
             {
-                scene=<Learn></Learn>
+                scene = <Learn></Learn>
                 break
             }
         case "test":
             {
-                scene=<Test></Test>
+                scene = <Test></Test>
                 break
             }
         default:
@@ -64,100 +64,104 @@ function Detail({}) {
     }
     console.log(scene)
     return (
-      <>
-      {scene==null?  <Container>
-            <WrapCourseInfo>
+        <>
+            {scene == null ? <Container>
+                <WrapCourseInfo>
 
-                <p className="title">{course.title}</p>
-                <LearnArea>
-                    <LeftContent>
-                        <p>Học</p>
-                        <li>
-                            <Link>
-                                <FaClone></FaClone>
-                                Thẻ ghi nhớ
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/${id}/learn`}>
-                                <FaUndoAlt></FaUndoAlt>
-                                Học
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/${id}/write`}>
-                                <FaPen></FaPen>
-                                Viết
-                            </Link>
-                        </li>
-                        <li>
-                            <Link>
-                                <FaVolumeUp></FaVolumeUp>
-                                Chính tả
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/${id}/test`}>
-                                <FaFileAlt></FaFileAlt>
-                                Kiểm tra
-                            </Link>
-                        </li>
-                    </LeftContent>
-                    <RightContent>
-                        <Slide></Slide>
-                    </RightContent>
-                </LearnArea>
-                <CourseInfo>
-                    <div className="top-content">
-                        <div className="user">
-                            <img src="https://assets.quizlet.com/a/j/dist/i/animals/14.3d9afcb8dbe2d77.jpg" alt="" />
-                            <div className="user-name">
-                                <p>Tạo bởi</p>
-                                <p>luannguyen</p>
+                    <p className="title">{course.title}</p>
+                    <LearnArea>
+                        <LeftContent>
+                            <p>Học</p>
+                            <li>
+                                <Link>
+                                    <FaClone></FaClone>
+                                    Thẻ ghi nhớ
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/${id}/learn`}>
+                                    <FaUndoAlt></FaUndoAlt>
+                                    Học
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/${id}/write`}>
+                                    <FaPen></FaPen>
+                                    Viết
+                                </Link>
+                            </li>
+                            <li>
+                                <Link>
+                                    <FaVolumeUp></FaVolumeUp>
+                                    Chính tả
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/${id}/test`}>
+                                    <FaFileAlt></FaFileAlt>
+                                    Kiểm tra
+                                </Link>
+                            </li>
+                        </LeftContent>
+                        <RightContent>
+                            <Slide terms={course.listTerms}></Slide>
+                        </RightContent>
+                    </LearnArea>
+                    <CourseInfo>
+                        <div className="top-content">
+                            <div className="user">
+                                <img src="https://assets.quizlet.com/a/j/dist/i/animals/14.3d9afcb8dbe2d77.jpg" alt="" />
+                                <div className="user-name">
+                                    <p>Tạo bởi</p>
+                                    <p>luannguyen</p>
+                                </div>
                             </div>
+                            <ul className="actions">
+                                <li>
+                                    <FaPlus></FaPlus>
+                                </li>
+                                <li>
+                                    <Link to={`/${id}/edit`}>
+                                        <FaPen></FaPen>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link>
+                                        <FaInfo></FaInfo>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <FaEllipsisH></FaEllipsisH>
+                                </li>
+                            </ul>
                         </div>
-                        <ul className="actions">
-                            <li>
-                                <FaPlus></FaPlus>
-                            </li>
-                            <li>
-                                <FaPen></FaPen>
-                            </li>
-                            <li>
-                                <FaInfo></FaInfo>
-                            </li>
-                            <li>
-                                <FaEllipsisH></FaEllipsisH>
-                            </li>
-                        </ul>
-                    </div>
-                    <p className="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, ad.
-                    </p>
-                </CourseInfo>
-            </WrapCourseInfo>
-            <WrapTermInfo>
-                <TermInfo>
-                    <h4>Thuật ngữ trong học phần này (2)</h4>
-                    <div className="learning">
-                        <div>
-                            <h4>Đang học(2)</h4>
-                            <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
+                        <p className="description">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, ad.
+                        </p>
+                    </CourseInfo>
+                </WrapCourseInfo>
+                <WrapTermInfo>
+                    <TermInfo>
+                        <h4>Thuật ngữ trong học phần này (2)</h4>
+                        <div className="learning">
+                            <div>
+                                <h4>Đang học(2)</h4>
+                                <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
 
+                            </div>
+                            <div className="choose-btn">Chọn 2</div>
                         </div>
-                        <div className="choose-btn">Chọn 2</div>
-                    </div>
-                    {
-                        course.listTerms&&course?.listTerms.map(item=>{
-                            return <TermItem term={item}></TermItem>
+                        {
+                            course.listTerms && course?.listTerms.map(item => {
+                                return <TermItem term={item}></TermItem>
 
-                        })
-                    }
-                </TermInfo>
+                            })
+                        }
+                    </TermInfo>
                     <Link className="edit-btn" to={`/${id}/edit`}>Thêm hoặc xóa thuật ngữ</Link>
-            </WrapTermInfo>
-        </Container>:scene}
-      </>
+                </WrapTermInfo>
+            </Container> : scene}
+        </>
     )
 }
 

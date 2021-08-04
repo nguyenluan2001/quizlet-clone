@@ -151,26 +151,16 @@ align-items:center;
         }
     }
 }
-.buttons{
-    span{
-        margin:0rem 1rem;
-        font-weight:bold;
-    }
-    .login{
-        color:#cedaf3;
-        cursor:pointer;
-        &:hover{
-            color:white;
+.user{
+    .image
+    {
+        width:35px;
+        img{
+            width:100%;
+            border-radius:50%;
+            cursor:pointer;
         }
-    }
-    .register{
-        background:rgb(255,220,98);
-        color:rgb(66,87,178);
-        padding:0.3rem 0.6rem;
-        border-radius:5px;
-        cursor:pointer;
-
-
+        margin-left:1rem;
     }
 }
 `
