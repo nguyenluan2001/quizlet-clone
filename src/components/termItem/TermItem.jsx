@@ -2,7 +2,10 @@ import React from 'react'
 import { Container } from "./style"
 import {FaStar,FaVolumeUp,FaPen} from "react-icons/fa"
 import axios from "axios"
-function TermItem({term}) {
+import {updateStartCourse} from "../../services/database"
+import {useParams} from "react-router-dom"
+function TermItem({term,setStars}) {
+    const {id}=useParams()
     function handleSpeak()
     {
         axios(
@@ -25,10 +28,15 @@ function TermItem({term}) {
                   }
             }
         ).then(res=>{
-            console.log(res.data)
             let audio=new Audio(res.data)
             audio.play()
 
+        })
+    }
+    function handleSetStart()
+    {
+        updateStartCourse(id,term.id).catch(err=>{
+            console.log(err)
         })
     }
     return (
@@ -36,7 +44,7 @@ function TermItem({term}) {
             <span className="word">{term.word}</span>
             <span className="definition">{term.definition}</span>
             <ul className="actions">
-                <li><FaStar></FaStar></li>
+                <li onClick={()=>handleSetStart()} className={setStars?.includes(term.id)&&"set-star"}><FaStar></FaStar></li>
                 <li  onClick={()=>handleSpeak()}><FaVolumeUp ></FaVolumeUp></li>
                 <li><FaPen></FaPen></li>
             </ul>

@@ -129,4 +129,22 @@ export const TermInfo=styled.div`
         }
     }
 }
+.switch-start{
+    display:flex;
+    & div{
+        background:white;
+        color:rgb(62,207,207);
+        font-weight:bold;
+        padding:0.5rem;
+        border:1px solid rgba(0,0,0,0.3);
+        cursor:pointer;
+        &.active{
+            background:gold;
+            color:black;
+        }
+    }
+    & > div:first-child{
+        border-right:none;
+    }
+}
 `

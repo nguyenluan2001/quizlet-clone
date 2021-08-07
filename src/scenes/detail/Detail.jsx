@@ -29,14 +29,39 @@ import Slide from './components/slide/Slide'
 import TermItem from '../../components/termItem/TermItem'
 import Learn from '../learn/Learn'
 import Test from '../test/Test'
+import { firestore } from '../../services/firebase'
 function Detail({ }) {
     const { id, type } = useParams()
     let scene = null
     const [course, setCourse] = useState({})
-    useEffect(async () => {
-        let fetchCourse = await fetchCourseById(id)
-        setCourse(fetchCourse.data())
+    const [tempCourse, setTempCourse] = useState({})
+    const [toggleShowTerm,setToggleShowTerm]=useState("all")
+    useEffect(() => {
+        firestore.collection("courses").doc(id).onSnapshot(snap => {
+            setCourse(snap.data())
+            setTempCourse(snap.data())
+           
+        })
+        // let fetchCourse = await fetchCourseById(id)
+        // setCourse(fetchCourse.data())
     }, [])
+    useEffect(()=>{
+        if(toggleShowTerm=="star"&&tempCourse.setStars.length>0)
+        {
+            console.log("star")
+            let listStars=tempCourse.listTerms.filter(item=>tempCourse.setStars.includes(item.id))
+            console.log(listStars)
+            setCourse(pre=>{
+                return {...pre,listTerms:listStars}
+            })
+            setToggleShowTerm("star")
+        }
+        else
+        {
+            setCourse(tempCourse)
+            setToggleShowTerm("all")
+        }
+    },[tempCourse])
     switch (type) {
         case "flashcards": {
             scene = <FlashCard></FlashCard>
@@ -62,7 +87,24 @@ function Detail({ }) {
                 scene = null
             }
     }
-    console.log(scene)
+    function handleShowTerms(type)
+    {
+        if(type=="all")
+        {
+            setCourse(tempCourse)
+            setToggleShowTerm("all")
+        }
+        else
+        {
+            let listStars=tempCourse.listTerms.filter(item=>tempCourse.setStars.includes(item.id))
+            console.log(listStars)
+            setCourse(pre=>{
+                return {...pre,listTerms:listStars}
+            })
+            setToggleShowTerm("star")
+
+        }
+    }
     return (
         <>
             {scene == null ? <Container>
@@ -142,18 +184,27 @@ function Detail({ }) {
                 </WrapCourseInfo>
                 <WrapTermInfo>
                     <TermInfo>
-                        <h4>Thuật ngữ trong học phần này (2)</h4>
+                        <div className="d-flex justify-content-between mb-3">
+                            <h4>Thuật ngữ trong học phần này (2)</h4>
+                            {
+                                tempCourse.setStars?.length ?<div className="switch-start">
+                                    <div className={toggleShowTerm=="all"&&"active"} onClick={()=>handleShowTerms("all")}>Tất cả</div>
+                                    <div className={toggleShowTerm=="star"&&"active"} onClick={()=>handleShowTerms("star")}>Gắn dấu sao ({tempCourse.setStars?.length})</div>
+                                </div> : ""
+                            }
+                        </div>
                         <div className="learning">
                             <div>
                                 <h4>Đang học(2)</h4>
                                 <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
 
                             </div>
+
                             <div className="choose-btn">Chọn 2</div>
                         </div>
                         {
                             course.listTerms && course?.listTerms.map(item => {
-                                return <TermItem term={item}></TermItem>
+                                return <TermItem term={item} setStars={tempCourse.setStars}></TermItem>
 
                             })
                         }

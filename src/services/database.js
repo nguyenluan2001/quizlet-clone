@@ -1,5 +1,6 @@
 import axios from "axios"
 import {firestore} from "./firebase"
+import {firebase} from "./firebase"
 const saveToDatabase=(data)=>
 {
     return firestore.collection("courses").add(data)
@@ -18,4 +19,22 @@ const updateCourse=(id,payload)=>
         listTerms:payload.listTerms
     })
 }
-export {saveToDatabase,fetchCourses,fetchCourseById,updateCourse}
+const updateStartCourse=async (courseId,termId)=>{
+    let course=  await firestore.collection("courses").doc(courseId).get()
+    console.log(course.data())
+
+    if(course.data().setStars.includes(termId))
+    {
+        return firestore.collection("courses").doc(courseId).update({
+           "setStars":firebase.firestore.FieldValue.arrayRemove(termId)
+       })
+    }
+    else
+    {
+
+        return firestore.collection("courses").doc(courseId).update({
+            "setStars":firebase.firestore.FieldValue.arrayUnion(termId)
+        })
+    }
+}
+export {saveToDatabase,fetchCourses,fetchCourseById,updateCourse,updateStartCourse}

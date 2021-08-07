@@ -19,6 +19,9 @@ background:white;
         &:hover{
             color:gold;
         }
+        &.set-star{
+            color:gold;
+        }
     }
 } 
 `
