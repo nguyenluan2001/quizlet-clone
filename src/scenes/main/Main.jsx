@@ -25,9 +25,10 @@ function Main(props) {
                     </Route> */}
                     <PrivateRoute  path="/latest" exact  component={Latest}>
                     </PrivateRoute>
-                    <Route path="/create-set" exact  render={()=>{
+                    {/* <Route path="/create-set" exact  render={()=>{
                         return <CreateSet ></CreateSet>
-                    }}></Route>
+                    }}></Route> */}
+                    <Route path="/create-set" component={CreateSet}></Route>
                     <Route path="/:id/edit" exact component={CreateSet}></Route>
                     <PrivateRoute path="/:id/:type" component={Detail}></PrivateRoute>
                 </Switch>

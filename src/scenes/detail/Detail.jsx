@@ -25,43 +25,45 @@ import {
     FaEllipsisH
 
 } from "react-icons/fa"
+import { AiOutlineStar, AiFillStar } from "react-icons/ai"
 import Slide from './components/slide/Slide'
 import TermItem from '../../components/termItem/TermItem'
 import Learn from '../learn/Learn'
 import Test from '../test/Test'
-import { firestore } from '../../services/firebase'
+import { firestore, auth } from '../../services/firebase'
+import { updateStarCourse } from "../../services/database"
+import Modal from './components/modal/Modal'
 function Detail({ }) {
     const { id, type } = useParams()
     let scene = null
     const [course, setCourse] = useState({})
     const [tempCourse, setTempCourse] = useState({})
-    const [toggleShowTerm,setToggleShowTerm]=useState("all")
+    const [toggleShowTerm, setToggleShowTerm] = useState("all")
+    const [toggleModalDelete,setToggleModalDelete]=useState(false)
     useEffect(() => {
         firestore.collection("courses").doc(id).onSnapshot(snap => {
             setCourse(snap.data())
             setTempCourse(snap.data())
-           
+
         })
         // let fetchCourse = await fetchCourseById(id)
         // setCourse(fetchCourse.data())
     }, [])
-    useEffect(()=>{
-        if(toggleShowTerm=="star"&&tempCourse.setStars.length>0)
-        {
+    useEffect(() => {
+        if (toggleShowTerm == "star" && tempCourse.setStars.length > 0) {
             console.log("star")
-            let listStars=tempCourse.listTerms.filter(item=>tempCourse.setStars.includes(item.id))
+            let listStars = tempCourse.listTerms.filter(item => tempCourse.setStars.includes(item.id))
             console.log(listStars)
-            setCourse(pre=>{
-                return {...pre,listTerms:listStars}
+            setCourse(pre => {
+                return { ...pre, listTerms: listStars }
             })
             setToggleShowTerm("star")
         }
-        else
-        {
+        else {
             setCourse(tempCourse)
             setToggleShowTerm("all")
         }
-    },[tempCourse])
+    }, [tempCourse])
     switch (type) {
         case "flashcards": {
             scene = <FlashCard></FlashCard>
@@ -87,30 +89,30 @@ function Detail({ }) {
                 scene = null
             }
     }
-    function handleShowTerms(type)
-    {
-        if(type=="all")
-        {
+    function handleShowTerms(type) {
+        if (type == "all") {
             setCourse(tempCourse)
             setToggleShowTerm("all")
         }
-        else
-        {
-            let listStars=tempCourse.listTerms.filter(item=>tempCourse.setStars.includes(item.id))
+        else {
+            let listStars = tempCourse.listTerms.filter(item => tempCourse.setStars.includes(item.id))
             console.log(listStars)
-            setCourse(pre=>{
-                return {...pre,listTerms:listStars}
+            setCourse(pre => {
+                return { ...pre, listTerms: listStars }
             })
             setToggleShowTerm("star")
 
         }
+    }
+    function handleSetStar() {
+        updateStarCourse(id)
     }
     return (
         <>
             {scene == null ? <Container>
                 <WrapCourseInfo>
 
-                    <p className="title">{course.title}</p>
+                    <p className="title">{course?.title}</p>
                     <LearnArea>
                         <LeftContent>
                             <p>Học</p>
@@ -146,7 +148,7 @@ function Detail({ }) {
                             </li>
                         </LeftContent>
                         <RightContent>
-                            <Slide terms={course.listTerms}></Slide>
+                            <Slide terms={course?.listTerms}></Slide>
                         </RightContent>
                     </LearnArea>
                     <CourseInfo>
@@ -155,7 +157,7 @@ function Detail({ }) {
                                 <img src="https://assets.quizlet.com/a/j/dist/i/animals/14.3d9afcb8dbe2d77.jpg" alt="" />
                                 <div className="user-name">
                                     <p>Tạo bởi</p>
-                                    <p>luannguyen</p>
+                                    <p>{auth.currentUser.displayName}</p>
                                 </div>
                             </div>
                             <ul className="actions">
@@ -172,13 +174,22 @@ function Detail({ }) {
                                         <FaInfo></FaInfo>
                                     </Link>
                                 </li>
-                                <li>
+                                <li className="control-course">
                                     <FaEllipsisH></FaEllipsisH>
+                                    <div className="dropdown">
+                                        <div className="dropdown-content">
+                                            <p className="dropdown-item">Tùy chỉnh</p>
+                                            <p className="dropdown-item">Điểm</p>
+                                            <p className="dropdown-item">In</p>
+                                            <p className="dropdown-item" onClick={()=>setToggleModalDelete(true)}>Xóa</p>
+                                          
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                         <p className="description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, ad.
+                            {tempCourse?.description}
                         </p>
                     </CourseInfo>
                 </WrapCourseInfo>
@@ -187,20 +198,34 @@ function Detail({ }) {
                         <div className="d-flex justify-content-between mb-3">
                             <h4>Thuật ngữ trong học phần này (2)</h4>
                             {
-                                tempCourse.setStars?.length ?<div className="switch-start">
-                                    <div className={toggleShowTerm=="all"&&"active"} onClick={()=>handleShowTerms("all")}>Tất cả</div>
-                                    <div className={toggleShowTerm=="star"&&"active"} onClick={()=>handleShowTerms("star")}>Gắn dấu sao ({tempCourse.setStars?.length})</div>
+                                tempCourse.setStars?.length ? <div className="switch-start">
+                                    <div className={toggleShowTerm == "all" && "active"} onClick={() => handleShowTerms("all")}>Tất cả</div>
+                                    <div className={toggleShowTerm == "star" && "active"} onClick={() => handleShowTerms("star")}>Gắn dấu sao ({tempCourse.setStars?.length})</div>
                                 </div> : ""
                             }
                         </div>
                         <div className="learning">
                             <div>
-                                <h4>Đang học(2)</h4>
+                                <h5>Đang học({tempCourse.listTerms?.length})</h5>
                                 <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
 
                             </div>
 
-                            <div className="choose-btn">Chọn 2</div>
+                            <div className={`choose-btn ${tempCourse.setStars?.length == tempCourse.listTerms?.length && "set-all-star"}`} onClick={() => handleSetStar()}>
+                                {
+                                    tempCourse.setStars?.length == tempCourse.listTerms?.length
+                                        ? <>
+                                            <AiFillStar></AiFillStar>
+                                            <span>Bỏ chọn {tempCourse.listTerms?.length}</span>
+                                        </>
+
+                                        : <>
+                                            <AiOutlineStar></AiOutlineStar>
+                                            <span>Chọn {tempCourse.listTerms?.length}</span>
+                                        </>
+                                }
+
+                            </div>
                         </div>
                         {
                             course.listTerms && course?.listTerms.map(item => {
@@ -211,6 +236,7 @@ function Detail({ }) {
                     </TermInfo>
                     <Link className="edit-btn" to={`/${id}/edit`}>Thêm hoặc xóa thuật ngữ</Link>
                 </WrapTermInfo>
+                {toggleModalDelete&&<Modal courseId={id} setToggleModalDelete={setToggleModalDelete}></Modal>}
             </Container> : scene}
         </>
     )

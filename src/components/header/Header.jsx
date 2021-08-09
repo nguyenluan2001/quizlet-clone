@@ -103,7 +103,7 @@ function Header({setStickyHeader,stickyHeader}) {
                                 <Link class="dropdown-item" to="/create-set">Tiến độ</Link>
                                 <Link class="dropdown-item" to="/create-set">Chế độ ban đêm</Link>
                                 <Link class="dropdown-item" to="/create-set">Cài đặt</Link>
-                                <Link class="dropdown-item" to="/create-set">Đăng xuất</Link>
+                                <div class="dropdown-item" onClick={()=>logout()}>Đăng xuất</div>
 
                                 
                             </div>

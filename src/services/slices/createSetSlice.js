@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { firestore,auth } from "../firebase"
+import { firestore, auth } from "../firebase"
 const initialState = {
     title: "",
     description: "",
@@ -45,11 +45,23 @@ const createSetSlice = createSlice({
             state.title = action.payload.title
             state.description = action.payload.description
         },
-        setCourse:(state,action)=>{ //set state for edit
+        setCourse: (state, action) => { //set state for edit
             return action.payload
+        },
+        resetCreateSet: (state, action) => {
+            console.log("reset")
+            state.title = ""
+            state.description = ""
+            state.listTerms = [
+                {
+                    id: Math.floor(Math.random() * 100000).toString(),
+                    word: "",
+                    definition: ""
+                }
+            ]
         }
     }
 
 })
-export const { addTerm, deleteTerm, updateTerm, updateCourseInfo,setCourse } = createSetSlice.actions
+export const { addTerm, deleteTerm, updateTerm, updateCourseInfo, setCourse, resetCreateSet } = createSetSlice.actions
 export default createSetSlice.reducer

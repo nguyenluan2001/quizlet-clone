@@ -22,6 +22,9 @@ function TermItem({ index, term }) {
         })
     }
     useEffect(()=>{
+        setInput({})
+    },[])
+    useEffect(()=>{
         setInput(term)
         console.log(term)
     },[])

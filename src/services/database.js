@@ -1,40 +1,63 @@
 import axios from "axios"
-import {firestore} from "./firebase"
-import {firebase} from "./firebase"
-const saveToDatabase=(data)=>
-{
+import { firestore, auth } from "./firebase"
+import { firebase } from "./firebase"
+
+const saveToDatabase = (data) => {
     return firestore.collection("courses").add(data)
 }
-const fetchCourses=()=>{
-    return firestore.collection("courses").get()
+const fetchCourses = () => {
+    return firestore.collection("courses").where("userID", "==", auth.currentUser.uid).get()
 }
-const fetchCourseById=(id)=>{
+const fetchCourseById = (id) => {
     return firestore.collection("courses").doc(id).get()
 }
-const updateCourse=(id,payload)=>
-{
+const updateCourse = (id, payload) => {
     return firestore.collection("courses").doc(id).update({
-        title:payload.title,
-        description:payload.description,
-        listTerms:payload.listTerms
+        title: payload.title,
+        description: payload.description,
+        listTerms: payload.listTerms
     })
 }
-const updateStartCourse=async (courseId,termId)=>{
-    let course=  await firestore.collection("courses").doc(courseId).get()
+const updateStarCourse = async (courseId, termId=null) => {
+    let course = await firestore.collection("courses").doc(courseId).get()
     console.log(course.data())
-
-    if(course.data().setStars.includes(termId))
+    if(termId!=null)
     {
-        return firestore.collection("courses").doc(courseId).update({
-           "setStars":firebase.firestore.FieldValue.arrayRemove(termId)
-       })
+        if (course.data().setStars) {
+            if (course.data().setStars.includes(termId)) {
+                return firestore.collection("courses").doc(courseId).update({
+                    "setStars": firebase.firestore.FieldValue.arrayRemove(termId)
+                })
+            }
+            else {
+    
+                return firestore.collection("courses").doc(courseId).update({
+                    "setStars": firebase.firestore.FieldValue.arrayUnion(termId)
+                })
+            }
+        }
+        else
+        {
+            return firestore.collection("courses").doc(courseId).update({
+                "setStars": firebase.firestore.FieldValue.arrayUnion(termId)
+            })
+        }
     }
     else
     {
-
+        if(course.data().setStars.length==course.data().listTerms.length)
+        {
+            return firestore.collection("courses").doc(courseId).update({
+                "setStars": []
+            })
+        }
+        let termIds=course.data().listTerms.map(item=>item.id)
         return firestore.collection("courses").doc(courseId).update({
-            "setStars":firebase.firestore.FieldValue.arrayUnion(termId)
+            "setStars": termIds
         })
     }
 }
-export {saveToDatabase,fetchCourses,fetchCourseById,updateCourse,updateStartCourse}
+const deleteCourse=(courseId)=>{
+    return firestore.collection("courses").doc(courseId).delete()
+}
+export { saveToDatabase, fetchCourses, fetchCourseById, updateCourse, updateStarCourse,deleteCourse }

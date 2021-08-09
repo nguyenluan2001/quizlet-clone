@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from "./style"
 import {FaStar,FaVolumeUp,FaPen} from "react-icons/fa"
 import axios from "axios"
-import {updateStartCourse} from "../../services/database"
+import {updateStarCourse} from "../../services/database"
 import {useParams} from "react-router-dom"
 function TermItem({term,setStars}) {
     const {id}=useParams()
@@ -35,7 +35,7 @@ function TermItem({term,setStars}) {
     }
     function handleSetStart()
     {
-        updateStartCourse(id,term.id).catch(err=>{
+        updateStarCourse(id,term.id).catch(err=>{
             console.log(err)
         })
     }

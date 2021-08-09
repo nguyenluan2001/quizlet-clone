@@ -53,6 +53,39 @@ export const CourseInfo = styled.div`
                 color:gold;
             }
         }
+        .control-course{
+            position:relative;
+            &:hover .dropdown{
+                display:block;
+            }
+            .dropdown{
+                position:absolute;
+                display:none;
+                width:fit-content;
+                top:35px;
+                right:0;
+                padding-top:50%;
+                .dropdown-content{
+                    border:1px solid black;
+                    background:white;
+                    .dropdown-item{
+                        font-weight:bold;
+                        text-align:left;
+                        margin:0;
+                        padding:0.5rem 3rem 0.5rem 0.5rem;
+                        &:hover{
+                            background:gold;
+                        }
+                    }
+                    .dropdown-item:last-child{
+                        color:tomato;
+                        &:hover{
+                            color:black;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -90,7 +123,7 @@ grid-template-columns:1fr 3fr;
 padding:2rem 0rem;
 `
 export const WrapTermInfo=styled.div`
-padding:1rem 20rem;
+padding:3rem 20rem;
 background: rgb(246,247,251);
 .edit-btn
 {
@@ -124,8 +157,14 @@ export const TermInfo=styled.div`
         height:fit-content;
         cursor:pointer;
         background:white;
+        display:flex;
+        align-items:center;
         &:hover{
             color:gold;
+        }
+        &.set-all-star{
+            background:gold;
+            color:black;
         }
     }
 }
