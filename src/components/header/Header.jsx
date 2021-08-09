@@ -3,8 +3,11 @@ import { Container, Logo, Navbar, NavbarLeft, NavbarRight,StickyHeader,WrapperHe
 import { FaSearch, FaAngleDown } from "react-icons/fa"
 import { NavLink,Link } from "react-router-dom"
 import {useAuth} from "../../services/authContext"
+import ModalFolder from './components/modalFolder/ModalFolder'
+import {auth} from "../../services/firebase"
 function Header({setStickyHeader,stickyHeader}) {
     const [showLibrary, setShowLibrary] = useState(false)
+    const [toggleCreateFolder,setToggleCreateFolder]=useState(false)
     const {logout}=useAuth()
     // const [stickyHeader,setStickyHeader]=useState(false)
     // useEffect(()=>{
@@ -70,7 +73,9 @@ function Header({setStickyHeader,stickyHeader}) {
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="explain" role="tabpanel" aria-labelledby="profile-tab">456</div>
-                                    <div class="tab-pane fade" id="folder" role="tabpanel" aria-labelledby="contact-tab">789</div>
+                                    <div class="tab-pane fade" id="folder" role="tabpanel" aria-labelledby="contact-tab">
+                                        <Link to={`/${auth.currentUser.displayName}/folders`}>Xem tất cả thư mục</Link>
+                                    </div>
                                     <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="contact-tab">6575673</div>
                                 </div>
 
@@ -82,7 +87,7 @@ function Header({setStickyHeader,stickyHeader}) {
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <Link class="dropdown-item" to="/create-set">Học phần</Link>
-                                <Link class="dropdown-item" to="/create-set">Thư mục</Link>
+                                <div class="dropdown-item" onClick={()=>setToggleCreateFolder(true)}>Thư mục</div>
                                 <Link class="dropdown-item" to="/create-set">Lớp</Link>
                             </div>
                         </div>
@@ -113,7 +118,7 @@ function Header({setStickyHeader,stickyHeader}) {
                 </Navbar>
 
             </Container>
-          
+            {toggleCreateFolder&&<ModalFolder setToggleCreateFolder={setToggleCreateFolder}></ModalFolder>}
         </WrapperHeader>
     )
 }

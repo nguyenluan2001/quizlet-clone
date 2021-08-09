@@ -1,7 +1,7 @@
 import axios from "axios"
 import { firestore, auth } from "./firebase"
 import { firebase } from "./firebase"
-
+// ======= Courses ============
 const saveToDatabase = (data) => {
     return firestore.collection("courses").add(data)
 }
@@ -60,4 +60,19 @@ const updateStarCourse = async (courseId, termId=null) => {
 const deleteCourse=(courseId)=>{
     return firestore.collection("courses").doc(courseId).delete()
 }
-export { saveToDatabase, fetchCourses, fetchCourseById, updateCourse, updateStarCourse,deleteCourse }
+
+// =========== Folders ===============
+const createFolder=(input)=>{
+    return firestore.collection("folders").add({...input,courses:[],userID:auth.currentUser.uid})
+}
+const fetchFolders=()=>{
+    return firestore.collection("folders").get()
+}
+const fetchFolderById=(folderId)=>{
+    return firestore.collection("folders").doc(folderId).get()
+}
+export { saveToDatabase, fetchCourses,
+     fetchCourseById, updateCourse,
+      updateStarCourse,deleteCourse,
+      createFolder,fetchFolderById,fetchFolders
+     }
