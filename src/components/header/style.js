@@ -91,12 +91,40 @@ margin-left:2rem;
             }
         }
     }
+    #folder{
+        & >a {
+            text-decoration:none;
+        }
+        .folder-item{
+            padding:1rem;
+            display:block;
+            p{
+                margin:0;
+            }
+            .title{
+                color:black;
+            }
+            .num-courses{
+                color:rgb(192,196,211);
+            }
+            &:hover{
+                background:rgb(246,247,251);
+            }
+        }
+        .show-all-folder{
+            padding:1rem 0rem 0rem 1rem;;
+            font-weight:bold;
+            display:block;
+            border-top:1px solid rgba(0,0,0,0.2);
+
+        }
+    }
 
 }
-a{
+& > a{
     text-decoration:none;
 }
-a.active{
+& > a.active{
     position:relative;
     &::after{
         content:"";

@@ -71,8 +71,34 @@ const fetchFolders=()=>{
 const fetchFolderById=(folderId)=>{
     return firestore.collection("folders").doc(folderId).get()
 }
+const updateCourses=async (folderId,courseId)=>{
+    const folder=await firestore.collection("folders").doc(folderId).get()
+    if(folder.data().courses.includes(courseId))
+    {
+        return firestore.collection("folders").doc(folderId).update({
+            'courses':firebase.firestore.FieldValue.arrayRemove(courseId)
+        })
+
+    }
+    else
+    {
+        return firestore.collection("folders").doc(folderId).update({
+            'courses':firebase.firestore.FieldValue.arrayUnion(courseId)
+        })
+    }
+}
+const updateFolder=async (folderId,input)=>{
+    return firestore.collection("folders").doc(folderId).update({
+        title:input.title,
+        description:input.description
+    })
+}
+const deleteFolder=(folderId)=>{
+    return firestore.collection("folders").doc(folderId).delete()
+}
 export { saveToDatabase, fetchCourses,
      fetchCourseById, updateCourse,
       updateStarCourse,deleteCourse,
-      createFolder,fetchFolderById,fetchFolders
+      createFolder,fetchFolderById,fetchFolders,
+      updateCourses,updateFolder,deleteFolder
      }

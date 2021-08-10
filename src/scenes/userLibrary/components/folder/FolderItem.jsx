@@ -7,7 +7,7 @@ function FolderItem({folder}) {
     console.log(path)
     return (
         <FolderItemContainer to={`${path}/${folder.id}/sets`}>
-            <p className="num-courses">1 học phần</p>
+            <p className="num-courses">{folder.data().courses.length} học phần</p>
             <p className="folder-title">
                 <FaRegFolder></FaRegFolder>
                 {folder.data().title}

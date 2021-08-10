@@ -5,9 +5,11 @@ import { NavLink,Link } from "react-router-dom"
 import {useAuth} from "../../services/authContext"
 import ModalFolder from './components/modalFolder/ModalFolder'
 import {auth} from "../../services/firebase"
+import {fetchFolders} from "../../services/database"
 function Header({setStickyHeader,stickyHeader}) {
     const [showLibrary, setShowLibrary] = useState(false)
     const [toggleCreateFolder,setToggleCreateFolder]=useState(false)
+    const [folders,setFolders]=useState([])
     const {logout}=useAuth()
     // const [stickyHeader,setStickyHeader]=useState(false)
     // useEffect(()=>{
@@ -22,6 +24,11 @@ function Header({setStickyHeader,stickyHeader}) {
     //         }
     //     })
     // })
+    useEffect(()=>{
+        fetchFolders().then(res=>{
+            setFolders(res.docs)
+        })
+    },[])
     function handleLogout()
     {
         logout()
@@ -74,7 +81,15 @@ function Header({setStickyHeader,stickyHeader}) {
                                     </div>
                                     <div class="tab-pane fade" id="explain" role="tabpanel" aria-labelledby="profile-tab">456</div>
                                     <div class="tab-pane fade" id="folder" role="tabpanel" aria-labelledby="contact-tab">
-                                        <Link to={`/${auth.currentUser.displayName}/folders`}>Xem tất cả thư mục</Link>
+                                        {
+                                            folders?.map(item=>{
+                                                return <Link className="folder-item">
+                                                    <p className="title">{item?.data()?.title}</p>
+                                                    <p className="num-courses">{item?.data()?.courses?.length} học phần</p>
+                                                </Link>
+                                            })
+                                        }
+                                        <Link className="show-all-folder" to={`/${auth.currentUser.displayName}/folders`}>Xem tất cả thư mục</Link>
                                     </div>
                                     <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="contact-tab">6575673</div>
                                 </div>

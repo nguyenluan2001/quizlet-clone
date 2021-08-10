@@ -5,9 +5,9 @@ import {auth} from "../../../../services/firebase"
 function Course({ course }) {
     return (
         <Container to={`/${course.id}/detail`}>
-            <p className="title">{course.data().title}</p>
+            <p className="title">{course?.data()?.title}</p>
             <p className="num-terms">
-                {course.data().listTerms.length} thuật ngữ
+                {course?.data()?.listTerms?.length} thuật ngữ
                 <FaLock></FaLock>
             </p>
             <div className="user">
